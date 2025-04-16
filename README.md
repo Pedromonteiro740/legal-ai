@@ -1,61 +1,138 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+💼 Legal.AI – Match Inteligente para Áreas Jurídicas Legal.AI é uma aplicação web construída com Laravel que simula um sistema inteligente de recomendação de especialistas jurídicos com base na área de atuação e localização. Ideal para fins educacionais, projetos acadêmicos ou como protótipo para plataformas voltadas ao setor jurídico.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+🚀 Funcionalidades Interface intuitiva para busca de especialistas jurídicos.
 
-## About Laravel
+Sistema de "match" baseado em afinidade por área, localização e um fator de diversificação aleatória.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Listagem dos 3 perfis mais compatíveis com o usuário.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Apresentação clara dos fatores que contribuíram para a pontuação de afinidade.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🛠️ Tecnologias Utilizadas
 
-## Learning Laravel
+PHP 8+
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Laravel 10
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Bootstrap 5.3
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Blade Templates
 
-## Laravel Sponsors
+Font Awesome
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Animate.css
 
-### Premium Partners
+📂 Estrutura do Projeto
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+├── routes/ │ └── web.php # Define as rotas principais ├── app/ │ ├── Http/ │ │ └── Controllers/ │ │ └── MatchController.php # Lógica principal de match e controle │ └── helpers.php # Função utilitária para extrair iniciais dos nomes ├── resources/ │ └── views/ │ └── welcome.blade.php # Interface principal ├── composer.json # Autoload de helpers
 
-## Contributing
+⚙️ Instalação e Execução
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Clone o repositório git clone https://github.com/Pedromonteiro740/legal-ai.git cd legal-ai
 
-## Code of Conduct
+Instale as dependências composer install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Configure o ambiente Crie um arquivo .env e configure: cp .env.example .env php artisan key:generate Não é necessário banco de dados para esse projeto.
 
-## Security Vulnerabilities
+Habilite o helper no composer.json Certifique-se de que app/helpers.php está incluso no autoload: "autoload": { "files": [ "app/helpers.php" ] } Depois, execute: composer dump-autoload
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Rode o servidor php artisan serve Acesse: http://localhost:8000
 
-## License
+💡 Como funciona o Match? A lógica de correspondência está no MatchController. Ela considera três fatores principais:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Área de atuação (peso: 45%)
+
+Localização (peso: 35%)
+
+Fator de diversificação aleatório (peso: até 20%)
+
+A pontuação final de afinidade é calculada, normalizada para um máximo de 99, e os 3 perfis mais compatíveis são exibidos ao usuário.
+
+📑 Explicação dos Arquivos
+
+🔁 routes/web.php Define duas rotas principais:
+
+GET /: Exibe o formulário de busca.
+
+POST /buscar: Processa o formulário e retorna os matches.
+
+🎯 MatchController.php showForm(): Carrega a página inicial com as áreas únicas dos perfis.
+
+findMatches(): Processa os dados do formulário, calcula os matches e retorna os 3 melhores.
+
+calculateMatchScore(): Lógica de cálculo com pesos para área, localização e aleatoriedade.
+
+🧠 helpers.php Função initials($name) que retorna as iniciais de um nome, usada para exibir avatares ou identificadores estilizados.
+
+🌐 welcome.blade.php Interface visual do projeto:
+
+Formulário com campos de nome, área e localização.
+
+Listagem dos melhores especialistas recomendados.
+
+Uso de estilos modernos e responsivos.
+
+Principais decisões tomadas durante o desenvolvimento
+
+Rotas As rotas são configuradas no arquivo routes/web.php. As duas principais rotas são:
+GET '/': Exibe o formulário de entrada, permitindo que o usuário selecione sua área de atuação, localização e forneça seu nome.
+
+POST '/buscar': Recebe os dados do formulário e encontra os 3 melhores matches (profissionais) com base nas semelhanças de área de atuação, localização e outros fatores. Essa rota utiliza o método findMatches no MatchController.
+
+Controlador (MatchController) O controlador MatchController contém a lógica de cálculo dos "matches" entre o usuário e os perfis cadastrados. Ele contém duas funções principais:
+showForm: Exibe o formulário para o usuário preencher.
+
+findMatches: Valida e processa os dados do formulário, calcula a afinidade entre o usuário e os perfis, e retorna os 3 melhores matches com base na afinidade calculada.
+
+Decisões de Implementação: Validação de entrada: O método findMatches realiza a validação dos dados do formulário usando o Request do Laravel para garantir que as entradas sejam corretas.
+
+Cálculo de afinidade: A afinidade é calculada com base em três fatores principais: área de atuação, localização e um fator de diversificação aleatório. O cálculo de afinidade também leva em consideração os pesos atribuídos a cada um desses fatores.
+
+Perfil Falso (Fake Profiles) A aplicação usa perfis fictícios pré-definidos no código para simular o comportamento da funcionalidade de matchmaking. Cada perfil possui informações como:
+Nome
+
+Cargo
+
+Área de atuação
+
+Localização
+
+Descrição
+
+Tags (como LGPD, Compliance, etc.)
+
+Pesos para área, localização e outros fatores.
+
+Calculando a Afinidade O método calculateMatchScore é responsável por calcular a afinidade entre o usuário e os perfis. Ele leva em consideração os seguintes fatores:
+Área de atuação: Um perfil com uma área de atuação mais próxima à do usuário recebe uma pontuação maior.
+
+Localização: A localização do perfil é comparada com a localização fornecida pelo usuário.
+
+Diversificação: A afinidade também é ajustada por um fator de diversificação aleatório para evitar que o sistema sempre retorne os mesmos resultados.
+
+Visualização no Front-End (welcome.blade.php) A interface de usuário foi construída com o uso de Bootstrap para garantir uma experiência responsiva e fluída. Além disso, as cores e o layout foram escolhidos para criar uma aparência profissional e atraente.
+Estilos personalizados: O estilo da página foi ajustado com o uso de variáveis CSS (--primary, --secondary, etc.) para garantir um design moderno e harmônico.
+
+Cartões de perfil: Os resultados de "match" são apresentados em cartões (.match-card), que mostram as informações do perfil e uma "badge" de afinidade, destacando o nível de afinidade entre o usuário e o perfil.
+
+Helpers e Funções de Utilidade No arquivo helpers.php, a função initials é definida para extrair as iniciais do nome de um perfil. Isso é útil para exibir um avatar visual simples (com as iniciais) caso o perfil não tenha uma foto.
+
+Performance e Carregamento Para melhorar a experiência do usuário, foi implementada uma sobreposição de carregamento (loading-overlay) que aparece enquanto os dados estão sendo processados. Isso ajuda a garantir que o usuário saiba que a aplicação está processando os dados e evita a sensação de que a interface está congelada.
+
+Estrutura do Composer A aplicação inclui o arquivo helpers.php no autoload do Composer para garantir que as funções auxiliares estejam disponíveis em todo o código sem a necessidade de importação explícita.
+
+"autoload": { "files": [ "app/helpers.php" ] }
+
+Este projeto exemplifica o uso de Laravel para implementar uma funcionalidade de matchmaking inteligente, utilizando parâmetros de afinidade e lógica personalizada para criar uma experiência de usuário intuitiva. A arquitetura modular e o uso de recursos como validação de formulários e helpers garantem que o código seja bem estruturado e de fácil manutenção.
+
+✨ O que eu faria diferente se tivesse mais tempo
+
+Integração com banco de dados real.
+
+Cadastro e login de usuários.
+
+Sistema de avaliação e feedback dos especialistas.
+
+Filtros mais avançados (anos de experiência, tags, etc).
+
+🧑‍💻 Autor Pedro Henrique Monteiro Souza 📧 Contato: pedrohenriquemonteiro@usp.br

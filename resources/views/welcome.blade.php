@@ -199,7 +199,7 @@
             </div>
         </form>
 
-        <!-- Resultados -->
+        
         @if(session('matches'))
         <div class="mt-5 animate__animated animate__fadeInUp" id="match-section">
             <h4 class="text-center mb-4 fw-bold">Conexões Selecionadas para Você</h4>
@@ -232,7 +232,7 @@
                 @endforeach
             </div>
 
-            <!-- Botões -->
+           
             <div class="text-center mt-5 pt-4">
                 <div class="btn-group" role="group">
                 <button class="btn btn-success px-4 rounded-start-pill">
@@ -248,7 +248,7 @@
     </div>
 </div>
 
-<!-- Loading -->
+
 <div class="loading-overlay">
     <div class="text-center">
         <div class="loader"></div>
@@ -257,7 +257,7 @@
     </div>
 </div>
 
-<!-- Scripts -->
+
 <script>
     document.querySelector('form').addEventListener('submit', () => {
         document.querySelector('.loading-overlay').style.display = 'flex';
